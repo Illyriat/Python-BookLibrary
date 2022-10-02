@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Book List</h1>
+
+    {% for book in books %}
+        <div>
+            {{ book.title }}: {{ book.author }}: {{ book.genre }}:
+            <form method="post" action="{{ url_for('delete_book_button', title=book.title) }}">
+                <input class="btn" type="submit" name="delete" value="Delete book">
+
+            </form>
+
+     
+        </div>
+    {% endfor %}
+
+    <h1> Book of the year</h1>
+    <div>{{books[1].title}}: {{books[1].author}}: {{books[1].genre}}</div>
+
+
+    <h1> Add new book </h1>
+    <form action="/books" method="post">
+        <label for="title">Book Title</label>
+        <input type="text" name="title" id="title">
+        <label for="author">Book Author</label>
+        <input type="text" name="author" id="author">
+        <label for="genre">Book Genre</label>
+        <input type="text" name="genre" id="genre">
+        <input type="submit" value="Add book">
+
+    </form>
+{% endblock %}

@@ -1,0 +1,3 @@
+FLASK_APP=app.py
+FLASK_ENV=development
+FLASH_RUN_PORT=4999
