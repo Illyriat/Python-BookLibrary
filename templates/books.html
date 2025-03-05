@@ -1,33 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Book List</h1>
+<div class="container">
+    <h1>Book of the Year</h1>
+    <div class="book-featured">
+        <strong>{{ books[1].title }}</strong> by {{ books[1].author }} ({{ books[1].genre }})
+    </div>
 
-    {% for book in books %}
-        <div>
-            {{ book.title }}: {{ book.author }}: {{ book.genre }}:
-            <form method="post" action="{{ url_for('delete_book_button', title=book.title) }}">
-                <input class="btn" type="submit" name="delete" value="Delete book">
-
-            </form>
-
-     
-        </div>
-    {% endfor %}
-
-    <h1> Book of the year</h1>
-    <div>{{books[1].title}}: {{books[1].author}}: {{books[1].genre}}</div>
-
-
-    <h1> Add new book </h1>
-    <form action="/books" method="post">
+    <h1>Add New Book</h1>
+    <form action="/books" method="post" class="book-form">
         <label for="title">Book Title</label>
-        <input type="text" name="title" id="title">
-        <label for="author">Book Author</label>
-        <input type="text" name="author" id="author">
-        <label for="genre">Book Genre</label>
-        <input type="text" name="genre" id="genre">
-        <input type="submit" value="Add book">
+        <input type="text" name="title" id="title" required>
 
+        <label for="author">Book Author</label>
+        <input type="text" name="author" id="author" required>
+
+        <label for="genre">Book Genre</label>
+        <input type="text" name="genre" id="genre" required>
+
+        <label for="year">Return By</label>
+        <input type="date" name="year" id="year">
+
+        <div class="checkbox-group">
+            <input type="checkbox" name="checked_out" id="checked_out">
+            <label for="checked_out">Checked Out</label>
+        </div>
+
+        <input type="submit" value="Add Book" class="btn-add">
     </form>
+
+    <h1>Book List</h1>
+    <div class="book-list">
+        {% for book in books %}
+        <div class="book-item">
+            <span>{{ book.title }} by {{ book.author }} ({{ book.genre }})</span> |
+            {% if book.return_by %}
+                <span>Return by: {{ book.return_by.strftime('%d %b %Y') }}</span>
+            {% else %}
+                <span>Not Checked Out</span>
+            {% endif %}
+
+            <span>Checked Out: {{ "Yes" if book.checked_out else "No" }}</span>
+            
+            <form method="post" action="{{ url_for('controller.delete_book_button', title=book.title) }}">
+                <input class="btn-delete" type="submit" name="delete" value="Delete">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

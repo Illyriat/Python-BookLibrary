@@ -1,12 +1,13 @@
 from models.book import *
+import datetime
 
-
-book1 = Book("The Lord of The Rings", "J.R.R Tolkien", "Fantasy")
-book2 = Book("A Game of Thrones", "George R.R Martin", "Fantasy")
-book3 = Book("Behind the Mask", "Tyson Fury", "Autobiography")
-book4 = Book("Cook and Share", "Mary Berry", "Food and Drinks")
+book1 = Book("The Lord of The Rings", "J.R.R Tolkien", "Fantasy", datetime.datetime(2021, 12, 15), True)
+book2 = Book("A Game of Thrones", "George R.R Martin", "Fantasy", datetime.datetime(2021, 12, 15), False)
+book3 = Book("Behind the Mask", "Tyson Fury", "Autobiography", datetime.datetime(2021, 12, 15), True)
+book4 = Book("Cook and Share", "Mary Berry", "Food and Drinks", datetime.datetime(2021, 12, 15), False)
 
 _books = [book1, book2, book3, book4]
+
 
 def add_new_book(book):
     _books.append(book)
